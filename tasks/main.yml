@@ -1,2 +1,11 @@
 ---
 # tasks file for ansible-role-gluster
+
+- name: Install glusterfs-client and server
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - glusterfs-client
+    - glusterfs-server

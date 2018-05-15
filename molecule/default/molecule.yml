@@ -6,8 +6,27 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: instance
-    image: centos:7
+  - name: molecule-gluster-1
+    image: solita/ubuntu-systemd
+    privileged: True
+    required: 'True'
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    command: /lib/systemd/systemd
+  - name: molecule-gluster-2
+    image: solita/ubuntu-systemd
+    privileged: True
+    required: 'True'
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    command: /lib/systemd/systemd
+  - name: molecule-gluster-3
+    image: solita/ubuntu-systemd
+    privileged: True
+    required: 'True'
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    command: /lib/systemd/systemd
 provisioner:
   name: ansible
   lint:
