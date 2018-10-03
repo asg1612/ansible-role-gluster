@@ -3,9 +3,56 @@
 
 - name: Install glusterfs-client and server
   apt:
-    name: "{{ item }}"
+    name: ['glusterfs-client', 'glusterfs-server']
     state: present
     update_cache: true
-  with_items:
-    - glusterfs-client
-    - glusterfs-server
+
+- name: Ensure glusterfs-server is running
+  systemd:
+    name: glusterd
+    state: started
+
+- name: Create a trusted storage pool
+  gluster_peer:
+    state: present
+    nodes:
+      - "{{ node_2 }}"
+      - "{{ node_3 }}"
+  when: "node_1 in hostvars[inventory_hostname]['ansible_nodename']"
+
+- name: Create a trusted storage pool 2
+  gluster_peer:
+    state: present
+    nodes:
+      - "{{ node_1 }}"
+  when: "node_2 in hostvars[inventory_hostname]['ansible_nodename']"
+
+- name: Create brick directory
+  file:
+    state: directory
+    path: /bricks/brick1/g1
+
+- name: create gluster volume
+  gluster_volume:
+    state: present
+    name: hsap
+    bricks: /bricks/brick1/g1
+    replicas: 3
+    cluster:
+      - "{{ node_1 }}"
+      - "{{ node_2 }}"
+      - "{{ node_3 }}"
+    force: yes
+  run_once: true
+
+- name: Create mount point gluster
+  file:
+    state: directory
+    path: /media/gluster-hsap/
+
+- name: mount gluster
+  mount:
+    path: /media/gluster-hsap/
+    src: "{{ hostvars[inventory_hostname]['ansible_nodename'] }}:/hsap"
+    fstype: glusterfs
+    state: mounted

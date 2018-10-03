@@ -1,5 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    node_1: molecule-gluster-1
+    node_2: molecule-gluster-2
+    node_3: molecule-gluster-3
   roles:
     - role: ansible-role-gluster

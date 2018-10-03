@@ -1,4 +1,4 @@
-Role Name
+Glusterfs
 =========
 
 A brief description of the role goes here.
@@ -12,12 +12,10 @@ good idea to mention in this section that the boto package is required.
 
 Role Variables
 --------------
-
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.) should
-be mentioned here as well.
+3 gluster server:
+ - node_1
+ - node_2
+ - node_3
 
 Dependencies
 ------------
@@ -44,6 +42,12 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a
-website (HTML is not allowed).
-# ansible-role-gluster
+Andrés Sánchez García
+
+twitter: @asg1612
+
+e-mail: asg1612@gmail.com
+
+linkedin: https://www.linkedin.com/in/asg1612/
+
+website: http://andressaga.es/

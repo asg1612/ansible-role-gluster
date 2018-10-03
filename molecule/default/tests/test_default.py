@@ -6,9 +6,12 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
 
-def test_hosts_file(host):
-    f = host.file('/etc/hosts')
+def test_glusterfs_server_is_installed(host):
+    gluster = host.package("glusterfs-server")
+    assert gluster.is_installed
 
-    assert f.exists
-    assert f.user == 'root'
-    assert f.group == 'root'
+
+def test_nginx_running_and_enabled(host):
+    gluster = host.service("glusterd")
+    assert gluster.is_running
+    assert gluster.is_enabled
