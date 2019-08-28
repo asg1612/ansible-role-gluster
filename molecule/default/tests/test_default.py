@@ -11,7 +11,7 @@ def test_glusterfs_server_is_installed(host):
     assert gluster.is_installed
 
 
-def test_nginx_running_and_enabled(host):
-    gluster = host.service("glusterd")
-    assert gluster.is_running
-    assert gluster.is_enabled
+def test_gluster_running_and_enabled(host):
+    gluster_service = host.service("glusterd")
+    assert gluster_service.is_running
+    assert gluster_service.is_enabled

@@ -11,6 +11,7 @@
   systemd:
     name: glusterd
     state: started
+    enabled: yes
 
 - name: Create a trusted storage pool
   gluster_peer:
@@ -42,7 +43,7 @@
       - "{{ node_1 }}"
       - "{{ node_2 }}"
       - "{{ node_3 }}"
-    force: yes
+    force: true
   run_once: true
 
 - name: Create mount point gluster
